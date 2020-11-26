@@ -1,0 +1,75 @@
+<?xml version="1.0" ?>
+
+<!--
+Modelo de Robot no tan elemental (otro) desarrollado para los ejercicios de
+la materia de Robotica y Animatronica de la UNC
+Laboratorio de Animatronica y Control
+Version= 0.1
+Autores:    Lisandro Lanfranco
+            Hugo Pailos-->
+
+<!--
+Changelog:
+            - Agregado el eje para el efector final para poder calcular
+            la cinematica directa.
+        -->
+
+<robot name="pant" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <link name="base_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.35" length="0.2"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <joint name="baselink__link01" type="revolute">
+        <axis xyz="0 0 1"/>
+        <limit effort="1000.0" lower="0" upper="1.57" velocity="0.5"/>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <parent link="base_link"/>
+        <child link="link_01"/>
+    </joint>
+
+    <link name="link_01">
+        <visual>
+            <origin rpy="0 0 0" xyz="1 0 0"/>
+            <geometry>
+                <box size="2 0.3 0.1"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <joint name="link01__link02" type="prismatic">
+        <axis xyz="1 0 0"/>
+        <limit effort="1000.0" lower="0" upper="1" velocity="0.5"/>
+        <origin rpy="0 0 0" xyz="1 0 0"/>
+        <parent link="link_01"/>
+        <child link="link_02"/>
+    </joint>
+
+    <link name="link_02">
+        <visual>
+            <origin rpy="0 0 0" xyz="0.5 0 0"/>
+            <geometry>
+                <box size="1 0.2 0.1"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <!--La herramienta no existe, solo se ubica para que muestre lo ejes-->
+
+    <joint name="link02__efector" type="fixed">
+        <axis xyz="1 0 0"/>
+        <origin rpy="0 0 0" xyz="1 0 0"/>
+        <parent link="link_02"/>
+        <child link="efector"/>
+    </joint>
+
+    <link name="efector">
+
+    </link>
+
+</robot>
